@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="class">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="main">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="obsolete">
+      <UniqueIdentifier>{842c9440-6b3a-46da-9b69-2d3729d68139}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="targetver.h">
+      <Filter>class</Filter>
+    </ClInclude>
+    <ClInclude Include="class.h">
+      <Filter>class</Filter>
+    </ClInclude>
+    <ClInclude Include="integral.h">
+      <Filter>class</Filter>
+    </ClInclude>
+    <ClInclude Include="containers.h">
+      <Filter>class</Filter>
+    </ClInclude>
+    <ClInclude Include="casting.h">
+      <Filter>class</Filter>
+    </ClInclude>
+    <ClInclude Include="static_class.h">
+      <Filter>class</Filter>
+    </ClInclude>
+    <ClInclude Include="reference.h">
+      <Filter>class</Filter>
+    </ClInclude>
+    <ClInclude Include="introspection.h">
+      <Filter>class</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="observer_test.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="class_test.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="signal.h">
+      <Filter>class</Filter>
+    </ClInclude>
+    <ClInclude Include="signal_test.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="events_test.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="events.h">
+      <Filter>class</Filter>
+    </ClInclude>
+    <ClInclude Include="lazy_proxy.h">
+      <Filter>class</Filter>
+    </ClInclude>
+    <ClInclude Include="integral_proxies.h">
+      <Filter>class</Filter>
+    </ClInclude>
+    <ClInclude Include="refcounted.h">
+      <Filter>class</Filter>
+    </ClInclude>
+    <ClInclude Include="observable.h">
+      <Filter>obsolete</Filter>
+    </ClInclude>
+    <ClInclude Include="observing.h">
+      <Filter>obsolete</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="casting.cpp">
+      <Filter>class</Filter>
+    </ClCompile>
+    <ClCompile Include="class.cpp">
+      <Filter>class</Filter>
+    </ClCompile>
+    <ClCompile Include="integral.cpp">
+      <Filter>class</Filter>
+    </ClCompile>
+    <ClCompile Include="introspection.cpp">
+      <Filter>class</Filter>
+    </ClCompile>
+    <ClCompile Include="class_test.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="observer_test.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="signal.cpp">
+      <Filter>class</Filter>
+    </ClCompile>
+    <ClCompile Include="signal_test.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="events_test.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="events.cpp">
+      <Filter>class</Filter>
+    </ClCompile>
+    <ClCompile Include="refcounted.cpp">
+      <Filter>class</Filter>
+    </ClCompile>
+    <ClCompile Include="observable.cpp">
+      <Filter>obsolete</Filter>
+    </ClCompile>
+    <ClCompile Include="observing.cpp">
+      <Filter>obsolete</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
