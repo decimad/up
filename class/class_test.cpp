@@ -101,13 +101,13 @@ void user_func(const up::mutable_object_ref& ref)
 	typed_ref = up::cast<up::integer>(ref.get_member(0));
 
 	std::cout<<"bases: \n";
-	up::bases_breadth_first(ref.get_class(), [](const up::class_* cl) {
+	up::bases_breadth_first(ref.get_class(), [](const up::type* cl) {
 		std::cout<<cl->get_name()<<"\n";
 	});
 
 }
 
-void class_test() {
+void typetest() {
 	sample_struct sample;
 	sample_struct2 sample2;
 	some_base& base = sample;

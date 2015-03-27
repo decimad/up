@@ -5,7 +5,7 @@
 
 namespace up {
 
-	class class_;
+	class type;
 
 	namespace detail {
 		struct const_tag {};
@@ -31,7 +31,7 @@ namespace up {
 		{}
 
 
-		object_ref(const class_* cl, T* ptr, boost::intrusive_ptr<refcounted_virtual> lt = nullptr )
+		object_ref(const type* cl, T* ptr, boost::intrusive_ptr<refcounted_virtual> lt = nullptr )
 			: cl_(cl), ptr_(ptr), lt_(lt)
 		{}
 
@@ -91,7 +91,7 @@ namespace up {
 			return ptr_;
 		}
 
-		const class_* get_class() const
+		const type* get_class() const
 		{
 			return cl_;
 		}
@@ -112,7 +112,7 @@ namespace up {
 			return cl_->member_id(idx);
 		}
 
-		void adjust(const class_* newclass, const void* newptr)
+		void adjust(const type* newclass, const void* newptr)
 		{
 			cl_ = newclass;
 			ptr_ = newptr;
@@ -134,7 +134,7 @@ namespace up {
 		template< typename OtherTag >
 		friend class object_ref;
 
-		const class_* cl_;
+		const type* cl_;
 		T* ptr_;
 		boost::intrusive_ptr< refcounted_virtual > lt_;
 	};

@@ -1,3 +1,3 @@
 #pragma once
 
-void class_test();
+void typetest();

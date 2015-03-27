@@ -6,7 +6,7 @@
 
 namespace up {
 
-	class class_;
+	class type;
 
 	using std::unique_ptr;
 
@@ -18,12 +18,12 @@ namespace up {
 		using nested_iterator = nested_container_type::iterator;
 		using nested_sequence = sequence< nested_iterator >;
 
-		using class_container_type = std::unordered_map< std::string, const class_* >;
-		using class_iterator = class_container_type::iterator;
-		using class_sequence = sequence< class_iterator >;
+		using typecontainer_type = std::unordered_map< std::string, const type* >;
+		using typeiterator = typecontainer_type::iterator;
+		using typesequence = sequence< typeiterator >;
 
 		sequence< nested_iterator > nested();
-		sequence< class_iterator> classes();
+		sequence< typeiterator> classes();
 
 		static namespace_& global() {
 			static namespace_ ns(0);
@@ -34,10 +34,10 @@ namespace up {
 		namespace_();
 
 		void add_nested(namespace_*);
-		void add_class(const class_*);
+		void add_class(const type*);
 
 	private:
-		std::unordered_map<std::string, const class_*> classes_;
+		std::unordered_map<std::string, const type*> classes_;
 		std::vector< namespace_* > nested_spaces_;
 		namespace_* parent;
 	};

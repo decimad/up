@@ -1,5 +1,5 @@
 #pragma once
-#include "class.h"
+#include "type.h"
 
 namespace up {
 
@@ -13,7 +13,7 @@ namespace up {
 	// lookup_meta_class: lookup the runtime metaclass object of a data type
 	//
 	template< typename Class >
-	const class_* lookup_meta_class() {
+	const type* lookup_meta_class() {
 		return &get_meta_class(static_cast<const Class*>(nullptr));
 	}
 
@@ -25,7 +25,7 @@ namespace up {
 		template< typename T >
 		struct member {
 			virtual const char* id() = 0;
-			virtual const class_* cl() = 0;
+			virtual const type* cl() = 0;
 			virtual object_ref<void> make_ref(T& obj) = 0;
 			virtual ~member() {}
 		};
@@ -39,7 +39,7 @@ namespace up {
 				return Member::member_id();
 			}
 
-			const class_* cl()
+			const type* cl()
 			{
 				return Member::get_class();
 			}
@@ -60,7 +60,7 @@ namespace up {
 			return Id;
 		}
 
-		static const class_* member_class() {
+		static const type* member_class() {
 			return Binder::get_class();
 		}
 	};
@@ -75,13 +75,13 @@ namespace up {
 	// static_class
 	//
 	template< typename T, typename BaseList = up::bases<>, typename... Members >
-	class static_class : public class_ {
+	class static_class : public type {
 	public:
 		const char* get_name() const override {
 			return name_;
 		}
 
-		const type_info& class_id() const override {
+		const type_info& type_id() const override {
 			return typeid(T);
 		}
 
@@ -94,7 +94,7 @@ namespace up {
 			return bases_.size();	// ...
 		}
 
-		const class_* get_base(std::size_t idx) const override
+		const type* get_base(std::size_t idx) const override
 		{
 			return bases_[idx];
 		}
@@ -103,7 +103,7 @@ namespace up {
 			return index_lookup_[idx]->id();
 		}
 
-		const class_* member_class(std::size_t idx) const override {
+		const type* member_class(std::size_t idx) const override {
 			return index_lookup_[idx]->cl();
 		}
 
@@ -127,8 +127,8 @@ namespace up {
 		static_class(const char* name)
 			: name_(name)
 		{
-			register_class(name, this);
-			register_class(typeid(T), this);
+			register_type(name, this);
+			register_type(typeid(T), this);
 			add_lookups(construct<Members>()...);
 			make_casts(BaseList());
 		}
@@ -168,7 +168,7 @@ namespace up {
 
 		std::map< std::string, std::unique_ptr<detail::member<T>> > id_lookup_;
 		std::vector< std::unique_ptr<detail::member<T>> > index_lookup_;
-		std::vector< const class_* > bases_;
+		std::vector< const type* > bases_;
 		const char* name_;
 	};
 
@@ -192,8 +192,8 @@ namespace up {
 		make_most_ref(T& obj)
 	{
 		auto ptr = &obj;
-		const class_* cl = lookup_class(typeid(obj));
-		const class_* source = lookup_meta_class<T>();
+		const type* cl = lookup_class(typeid(obj));
+		const type* source = lookup_meta_class<T>();
 
 		if(!cl) {
 			cl = source;
@@ -259,20 +259,20 @@ namespace up {
 
 			using interface_type = InterfaceType;
 			using proxy_type = ProxyType;
-			using class_type = ClassType;
+			using typetype = ClassType;
 
-			static const class_* get_class()
+			static const type* get_class()
 			{
 				return lookup_meta_class<InterfaceType>();
 			}
 
-			static boost::intrusive_ptr<proxy_type> query_ref(class_type& obj)
+			static boost::intrusive_ptr<proxy_type> query_ref(typetype& obj)
 			{
 				return up::detail::lazy_proxy_storage::get().query<proxy_type>(obj, up::detail::type_to_id<proxy_type>());
 			}
 
 			template< typename Signal, typename... Args >
-			static void raise(typename class_type* obj, Signal(interface_type::*SignalPtr), Args&&... args)
+			static void raise(typename typetype* obj, Signal(interface_type::*SignalPtr), Args&&... args)
 			{
 				auto ptr = query_ref(*obj);
 				if(ptr) {
@@ -283,7 +283,7 @@ namespace up {
 			//
 			// called by static_class
 			//
-			static object_ref<void> make_ref(typename class_type& obj) {
+			static object_ref<void> make_ref(typename typetype& obj) {
 				auto ptr = up::detail::lazy_proxy_storage::get().get<proxy_type>(obj, up::detail::type_to_id<proxy_type>());
 				return object_ref<interface_type>(lookup_meta_class<interface_type>(), ptr.get(), ptr);
 			}

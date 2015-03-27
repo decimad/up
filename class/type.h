@@ -13,16 +13,18 @@
 
 namespace up {
 
-	class class_ {
+	class type_ref;
+	
+	class type {
 	public:
 		virtual const char* get_name() const = 0;
 
 		virtual std::size_t num_bases() const = 0;
-		virtual const class_* get_base(std::size_t idx) const = 0;
+		virtual const type* get_base(std::size_t idx) const = 0;
 
 		virtual std::size_t num_members() const = 0;
 		virtual const char* member_id(std::size_t idx) const = 0;
-		virtual const class_* member_class(std::size_t idx) const = 0;
+		virtual const type* member_class(std::size_t idx) const = 0;
 
 		virtual object_ref<void> get_member(void* ptr, std::size_t idx) const = 0;
 		virtual object_ref<void> get_member(void* ptr, const std::string& id) const = 0;
@@ -37,19 +39,31 @@ namespace up {
 
 		template< typename T >
 		bool is() const {
-			return typeid(T) == class_id();
+			return typeid(T) == typeid();
 		}
 		
-		virtual const type_info& class_id() const = 0;
+		virtual const type_info& type_id() const = 0;
 		virtual const type_info& instance_id(const void* instance) const = 0;
 
 	};
-		
-	void register_class(std::string id, const class_* ptr);
-	void register_class(const type_info&, const class_* ptr);
 
-	const class_* lookup_class(const char* name);
-	const class_* lookup_class(const type_info& info);
+	class type_ref {
+	public:
+		type_ref( const type* t)
+			: type_(t)
+		{}
+
+
+	private:
+		const type* type_;
+	};
+
+		
+	void register_type(std::string id, const type* ptr);
+	void register_type(const type_info&, const type* ptr);
+
+	const type* lookup_type(const char* name);
+	const type* lookup_type(const type_info& info);
 
 
 	class member_iterator : public boost::iterator_facade<member_iterator, const mutable_object_ref, std::random_access_iterator_tag, const mutable_object_ref> {
@@ -58,7 +72,7 @@ namespace up {
 			return cl_->member_id(index_);
 		}
 
-		const class_* get_class() const {
+		const type* get_class() const {
 			return cl_->member_class(index_);
 		}
 
@@ -83,7 +97,7 @@ namespace up {
 		}
 
 	private:
-		const class_* cl_;
+		const type* cl_;
 		void* object_;
 		std::size_t index_;
 	};

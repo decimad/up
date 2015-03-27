@@ -1,6 +1,6 @@
 #pragma once
 #include <limits>
-#include "class.h"
+#include "type.h"
 #include "integral.h"
 #include "lazy_proxy.h"
 

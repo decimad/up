@@ -5,7 +5,7 @@
 int main(int argc, char* argv[])
 {
 	events_test();
-	class_test();
+	typetest();
 	observer_test();
 	
 	return 0;

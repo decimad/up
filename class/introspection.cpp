@@ -4,12 +4,12 @@
 
 namespace up {
 
-	void bases_breadth_first(const class_* cl, const std::function<void(const class_*)>& func) {
-		std::queue< const class_* > queue;
+	void bases_breadth_first(const type* cl, const std::function<void(const type*)>& func) {
+		std::queue< const type* > queue;
 		queue.push(cl);
 
 		while(queue.size()) {
-			const class_* front = queue.front();
+			const type* front = queue.front();
 			queue.pop();
 			func(front);
 
@@ -20,12 +20,12 @@ namespace up {
 		}
 	}
 
-	void bases_depth_first(const class_* cl, const std::function<void(const class_*)>& func) {
-		std::stack< const class_* > stack;
+	void bases_depth_first(const type* cl, const std::function<void(const type*)>& func) {
+		std::stack< const type* > stack;
 		stack.push(cl);
 
 		while(stack.size()) {
-			const class_* front = stack.top();
+			const type* front = stack.top();
 			stack.pop();
 
 			func(front);

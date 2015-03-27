@@ -6,9 +6,9 @@ namespace up {
 	namespace casts {
 
 		using cast_type = cast_func_type;
-		using cast_pair = std::pair< const class_*, cast_type >;
+		using cast_pair = std::pair< const type*, cast_type >;
 		using cast_vector = std::vector< cast_pair >;
-		using cast_map = std::unordered_map < const class_*, cast_vector >;
+		using cast_map = std::unordered_map < const type*, cast_vector >;
 
 		cast_map& get_upcast_map() {
 			static cast_map map;
@@ -20,21 +20,21 @@ namespace up {
 			return map;
 		}
 				
-		void declare_upcast(const class_* a, const class_* b, cast_func_type cast)
+		void declare_upcast(const type* a, const type* b, cast_func_type cast)
 		{
 			get_upcast_map()[a].emplace_back(b, cast);			
 		}
 
-		void declare_downcast(const class_* a, const class_* b, cast_func_type cast) {
+		void declare_downcast(const type* a, const type* b, cast_func_type cast) {
 			get_downcast_map()[a].emplace_back(b, cast);
 		}
 
 		using path_type = std::vector< cast_func_type >;
 
-		path_type search_path(cast_map& map, const class_* src, const class_* dest)
+		path_type search_path(cast_map& map, const type* src, const type* dest)
 		{
 			path_type path;
-			using stack_elem_type = std::tuple< const class_*, cast_vector&, int >;
+			using stack_elem_type = std::tuple< const type*, cast_vector&, int >;
 
 			std::vector< stack_elem_type > search_stack;
 			std::vector< cast_func_type > cast_stack;
@@ -44,7 +44,7 @@ namespace up {
 			while(search_stack.size()) {
 				auto& top = search_stack.back();
 
-				const class_* curr_class = std::get<0>(top);
+				const type* curr_class = std::get<0>(top);
 				const auto& curr_cast_vector = std::get<1>(top);
 				size_t curr_cast_index = std::get<2>(top);
 
@@ -65,9 +65,9 @@ namespace up {
 			return path_type();
 		}
 		
-		const void* do_upcast(const class_* src_class, const void* src_ptr, const class_* dest_class)
+		const void* do_upcast(const type* src_class, const void* src_ptr, const type* dest_class)
 		{
-			using pair_type = std::pair<const class_*, const void*>;
+			using pair_type = std::pair<const type*, const void*>;
 			using queue_type = std::queue< pair_type >;
 			
 			if (src_class == dest_class) {
@@ -87,14 +87,14 @@ namespace up {
 			}
 		}
 
-		void* do_upcast(const class_* src_class, void* src_ptr, const class_* dest_class)
+		void* do_upcast(const type* src_class, void* src_ptr, const type* dest_class)
 		{
 			return const_cast<void*>(do_upcast(src_class, static_cast<const void*>(src_ptr), dest_class));
 		}
 
-		const void* do_downcast(const class_* src_class, const void* src_ptr, const class_* dest_class)
+		const void* do_downcast(const type* src_class, const void* src_ptr, const type* dest_class)
 		{
-			using pair_type = std::pair<const class_*, const void*>;
+			using pair_type = std::pair<const type*, const void*>;
 			using queue_type = std::queue< pair_type >;
 
 			if(src_class==dest_class) {
@@ -114,14 +114,14 @@ namespace up {
 			}
 		}
 
-		void* do_downcast(const class_* src_class, void* src_ptr, const class_* dest_class)
+		void* do_downcast(const type* src_class, void* src_ptr, const type* dest_class)
 		{
 			return const_cast<void*>(do_downcast(src_class, static_cast<const void*>(src_ptr), dest_class));
 		}
 
-		std::pair<const class_*, const void*> do_mostcast(const class_* cl, const void* ptr)
+		std::pair<const type*, const void*> do_mostcast(const type* cl, const void* ptr)
 		{
-			const auto* mostclass = lookup_class(cl->instance_id(ptr));
+			const auto* mostclass = lookup_type(cl->instance_id(ptr));
 			if(mostclass) {
 				return std::make_pair(mostclass, do_upcast(cl, ptr, mostclass));
 			} else {
@@ -129,16 +129,16 @@ namespace up {
 			}
 		}
 
-		std::pair<const class_*, void*> do_mostcast(const class_* cl, void* ptr)
+		std::pair<const type*, void*> do_mostcast(const type* cl, void* ptr)
 		{
 			auto ret = do_mostcast(cl, static_cast<const void*>(ptr));
-			return std::pair<const class_*, void*>(ret.first, const_cast<void*>(ret.second));
+			return std::pair<const type*, void*>(ret.first, const_cast<void*>(ret.second));
 		}
 
 	}
 
 	/*
-	mutable_object_ref cast(const class_* dest, mutable_object_ref src) {
+	mutable_object_ref cast(const type* dest, mutable_object_ref src) {
 		auto most_ref = casts::get_most_ref(src);
 		return mutable_object_ref(dest, const_cast<void*>(casts::do_downcast(most_ref.get_class(), most_ref.get_ptr(), dest)));
 	}

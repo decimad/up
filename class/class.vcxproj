@@ -114,14 +114,16 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="class.h" />
+    <ClInclude Include="type.h" />
     <ClInclude Include="class_test.h" />
     <ClInclude Include="containers.h" />
     <ClInclude Include="casting.h" />
     <ClInclude Include="events.h" />
     <ClInclude Include="events_test.h" />
     <ClInclude Include="lazy_proxy.h" />
+    <ClInclude Include="namespace.h" />
     <ClInclude Include="refcounted.h" />
+    <ClInclude Include="sequence.h" />
     <ClInclude Include="signal_test.h" />
     <ClInclude Include="integral.h" />
     <ClInclude Include="integral_proxies.h" />
@@ -137,7 +139,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="casting.cpp" />
-    <ClCompile Include="class.cpp" />
+    <ClCompile Include="type.cpp" />
     <ClCompile Include="class_test.cpp" />
     <ClCompile Include="events.cpp" />
     <ClCompile Include="events_test.cpp" />

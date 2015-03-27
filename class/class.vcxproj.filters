@@ -12,6 +12,9 @@
     <Filter Include="obsolete">
       <UniqueIdentifier>{842c9440-6b3a-46da-9b69-2d3729d68139}</UniqueIdentifier>
     </Filter>
+    <Filter Include="class\detail">
+      <UniqueIdentifier>{9e91ef2f-007b-4c8b-901d-4c6b46b474f7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -20,16 +23,10 @@
     <ClInclude Include="targetver.h">
       <Filter>class</Filter>
     </ClInclude>
-    <ClInclude Include="class.h">
-      <Filter>class</Filter>
-    </ClInclude>
     <ClInclude Include="integral.h">
       <Filter>class</Filter>
     </ClInclude>
     <ClInclude Include="containers.h">
-      <Filter>class</Filter>
-    </ClInclude>
-    <ClInclude Include="casting.h">
       <Filter>class</Filter>
     </ClInclude>
     <ClInclude Include="static_class.h">
@@ -50,32 +47,44 @@
     <ClInclude Include="class_test.h">
       <Filter>main</Filter>
     </ClInclude>
-    <ClInclude Include="signal.h">
-      <Filter>class</Filter>
-    </ClInclude>
     <ClInclude Include="signal_test.h">
       <Filter>main</Filter>
     </ClInclude>
     <ClInclude Include="events_test.h">
       <Filter>main</Filter>
     </ClInclude>
-    <ClInclude Include="events.h">
-      <Filter>class</Filter>
-    </ClInclude>
-    <ClInclude Include="lazy_proxy.h">
-      <Filter>class</Filter>
-    </ClInclude>
-    <ClInclude Include="integral_proxies.h">
-      <Filter>class</Filter>
-    </ClInclude>
-    <ClInclude Include="refcounted.h">
-      <Filter>class</Filter>
-    </ClInclude>
     <ClInclude Include="observable.h">
       <Filter>obsolete</Filter>
     </ClInclude>
     <ClInclude Include="observing.h">
       <Filter>obsolete</Filter>
+    </ClInclude>
+    <ClInclude Include="casting.h">
+      <Filter>class\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="integral_proxies.h">
+      <Filter>class\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="sequence.h">
+      <Filter>class\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="signal.h">
+      <Filter>class\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="refcounted.h">
+      <Filter>class\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="lazy_proxy.h">
+      <Filter>class\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="events.h">
+      <Filter>class\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="namespace.h">
+      <Filter>class</Filter>
+    </ClInclude>
+    <ClInclude Include="type.h">
+      <Filter>class</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -84,12 +93,6 @@
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>main</Filter>
-    </ClCompile>
-    <ClCompile Include="casting.cpp">
-      <Filter>class</Filter>
-    </ClCompile>
-    <ClCompile Include="class.cpp">
-      <Filter>class</Filter>
     </ClCompile>
     <ClCompile Include="integral.cpp">
       <Filter>class</Filter>
@@ -103,26 +106,32 @@
     <ClCompile Include="observer_test.cpp">
       <Filter>main</Filter>
     </ClCompile>
-    <ClCompile Include="signal.cpp">
-      <Filter>class</Filter>
-    </ClCompile>
     <ClCompile Include="signal_test.cpp">
       <Filter>main</Filter>
     </ClCompile>
     <ClCompile Include="events_test.cpp">
       <Filter>main</Filter>
     </ClCompile>
-    <ClCompile Include="events.cpp">
-      <Filter>class</Filter>
-    </ClCompile>
-    <ClCompile Include="refcounted.cpp">
-      <Filter>class</Filter>
-    </ClCompile>
     <ClCompile Include="observable.cpp">
       <Filter>obsolete</Filter>
     </ClCompile>
     <ClCompile Include="observing.cpp">
       <Filter>obsolete</Filter>
+    </ClCompile>
+    <ClCompile Include="casting.cpp">
+      <Filter>class\detail</Filter>
+    </ClCompile>
+    <ClCompile Include="signal.cpp">
+      <Filter>class\detail</Filter>
+    </ClCompile>
+    <ClCompile Include="refcounted.cpp">
+      <Filter>class\detail</Filter>
+    </ClCompile>
+    <ClCompile Include="events.cpp">
+      <Filter>class\detail</Filter>
+    </ClCompile>
+    <ClCompile Include="type.cpp">
+      <Filter>class</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
