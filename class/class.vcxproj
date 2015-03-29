@@ -114,6 +114,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="meta.h" />
     <ClInclude Include="type.h" />
     <ClInclude Include="class_test.h" />
     <ClInclude Include="containers.h" />
@@ -133,7 +134,7 @@
     <ClInclude Include="observing.h" />
     <ClInclude Include="reference.h" />
     <ClInclude Include="signal.h" />
-    <ClInclude Include="static_class.h" />
+    <ClInclude Include="static_type.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>

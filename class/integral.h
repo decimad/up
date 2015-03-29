@@ -1,6 +1,6 @@
 #pragma once
 
-#include "static_class.h"
+#include "static_type.h"
 #include "events.h"
 
 namespace up {
@@ -42,16 +42,16 @@ namespace up {
 		virtual void set(bool) const = 0;
 	};
 	
-	namespace classes {
-		using integer_class = static_class<integer>;
-		using real_class    = static_class<real>;
-		using enum_class    = static_class<enumeration>;
-		using boolean_class = static_class<boolean>;
+	namespace types {
+		using integer_type = static_class<integer>;
+		using real_type    = static_class<real>;
+		using enum_type    = static_class<enumeration>;
+		using boolean_type = static_class<boolean>;
 	}
 
-	const classes::integer_class& get_meta_class(const integer*);
-	const classes::real_class&    get_meta_class(const real*);
-	const classes::enum_class&    get_meta_class(const enumeration*);
-	const classes::boolean_class& get_meta_class(const boolean*);
+	const types::integer_type& get_meta_type(const integer*);
+	const types::real_type&    get_meta_type(const real*);
+	const types::enum_type&    get_meta_type(const enumeration*);
+	const types::boolean_type& get_meta_type(const boolean*);
 
 }

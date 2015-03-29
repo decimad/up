@@ -9,15 +9,55 @@
 
 #include "reference.h"
 #include <boost/iterator/iterator_facade.hpp>
+#include "sequence.h"
 
 
 namespace up {
 
+	class meta_type;
 	class type_ref;
+
+	class type_member
+	{
+		const std::string& id() const;
+		const meta_type* type() const;
+		bool is_public() const;
+
+		virtual object_ref<void> bind(const object_ref<void>&) const;
+	};
+
+	class type_fragment {
+		const type* type();
+		object_ref<void> bind(const object_ref<void>& obj);
+	};
+
+
 	
-	class type {
+	class meta_type {
 	public:
-		virtual const char* get_name() const = 0;
+	// V2
+		using fragment_iterator = int;
+		using fragment_sequence = int;
+
+		sequence< fragment_iterator > fragments();
+
+		using member_iterator = int;
+		using member_seuence = int;
+
+		sequence< member_iterator > members();
+
+		const std::string& id();
+
+	protected:
+		void declare_member(std::string name, type_member* mem_ptr);
+		std::unordered_map< std::string, type_member* > members_;
+
+		void declare_fragment(type_fragment* frag_ptr);
+		std::vector< type_fragment* > fragments_;
+	
+	// V1
+	public:
+		virtual std::string get_name() const = 0;
 
 		virtual std::size_t num_bases() const = 0;
 		virtual const type* get_base(std::size_t idx) const = 0;
@@ -39,7 +79,7 @@ namespace up {
 
 		template< typename T >
 		bool is() const {
-			return typeid(T) == typeid();
+			return typeid(T) == type_id();
 		}
 		
 		virtual const type_info& type_id() const = 0;
@@ -97,7 +137,7 @@ namespace up {
 		}
 
 	private:
-		const type* cl_;
+		const meta_type* cl_;
 		void* object_;
 		std::size_t index_;
 	};

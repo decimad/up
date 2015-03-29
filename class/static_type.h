@@ -1,20 +1,31 @@
 #pragma once
 #include "type.h"
+#include "meta.h"
 
 namespace up {
 
 	//
 	// static_meta_class: get the metaclass type of a data type
 	//
+
+	namespace detail {
+
+		template< typename Class >
+		struct static_meta_class {
+			using type = std::decay_t< decltype(get_meta_type(&std::declval<const Class>())) >;
+		};
+
+	}
+
 	template< typename Class >
-	using static_meta_class = typename std::remove_const<typename std::remove_reference<decltype(get_meta_class(static_cast<const Class*>(nullptr)))>::type>::type;
+	using static_meta_type_t = typename detail::static_meta_class<Class>::type;
 
 	//
 	// lookup_meta_class: lookup the runtime metaclass object of a data type
 	//
 	template< typename Class >
-	const type* lookup_meta_class() {
-		return &get_meta_class(static_cast<const Class*>(nullptr));
+	const type* lookup_meta_type() {
+		return &get_meta_type(static_cast<const Class*>(nullptr));
 	}
 
 	namespace detail {
@@ -71,12 +82,50 @@ namespace up {
 	template< typename... Bases >
 	struct bases {};
 
+	namespace detail {
+
+		template< typename Types >
+		struct to_meta_type {
+			using type = static_meta_type_t<Types>;
+		};
+
+		template< typename StaticMetaType >
+		struct get_all_bases {
+			using type = typename StaticMetaType::all_bases;
+		};
+
+		template< typename BaseList >
+		struct deep_bases;
+
+		template< typename Base0, typename... Bases >
+		struct deep_bases< bases<Base0, Bases...> >
+		{
+			using bases_meta_types = meta::transform_list_t<bases<Bases...>, to_meta_type, meta::list>;  // bases< A, ... > -> classes< A_Class, ... >
+			using all_bases_list   = meta::transform_list_t< bases_meta_types, get_all_bases, bases>; // classes< A_Class, ... > -> bases< bases< A_Class_Bases...>, ... >
+			using flat_bases_list  = meta::apply_t< all_bases_list, meta::union_list >;               // bases< bases< A_Class_Bases...>, ... > -> bases< A_Class_Bases..., B_Class_Bases..., ... >
+
+			using type = meta::union_list_t< bases< Bases... >, flat_bases_list >;
+		};
+
+		template< >
+		struct deep_bases< bases<> >
+		{
+			using type = bases<>;
+		};
+
+	}
+	
 	//
 	// static_class
 	//
 	template< typename T, typename BaseList = up::bases<>, typename... Members >
 	class static_class : public type {
 	public:
+		using direct_bases = BaseList;
+
+		// Fixme: It must be cast paths, since you might run into ambiguous casts
+		using all_bases = typename detail::deep_bases<BaseList>::type;
+
 		const char* get_name() const override {
 			return name_;
 		}
@@ -120,7 +169,7 @@ namespace up {
 			if(it!=id_lookup_.end()) {
 				return it->second->make_ref(*static_cast<T*>(ptr));
 			} else {
-				return object_ref<detail::internal_tag>(nullptr, nullptr);
+				return object_ref<void>(nullptr, nullptr);
 			}
 		}
 
@@ -130,13 +179,13 @@ namespace up {
 			register_type(name, this);
 			register_type(typeid(T), this);
 			add_lookups(construct<Members>()...);
-			make_casts(BaseList());
+			make_casts(all_bases());
 		}
 
 	private:
 		template< typename Base0, typename... Bases >
 		void make_casts(const bases<Base0, Bases...>&) {
-			const auto *base_class = lookup_meta_class<Base0>();
+			const auto *base_class = lookup_meta_type<Base0>();
 			bases_.push_back(base_class);
 
 			// splitting casts into down and upcasts avoids checks for circularity
@@ -181,7 +230,7 @@ namespace up {
 	//
 	template< typename T >
 	object_ref<T> make_ref(T& obj) {
-		return object_ref<T>(lookup_meta_class<typename std::remove_const<T>::type>(), &obj);
+		return object_ref<T>(lookup_meta_type<typename std::remove_const<T>::type>(), &obj);
 	}
 
 	//
@@ -218,7 +267,7 @@ namespace up {
 	//
 	template<typename DestType, typename SrcType>
 	object_ref<DestType> cast(const object_ref<SrcType>& src) {
-		const auto* destclass = lookup_meta_class<DestType>();
+		const auto* destclass = lookup_meta_type<DestType>();
 		auto* ptr = casts::do_downcast(src.get_class(), src.get_ptr(), destclass);
 		return object_ref<DestType>(destclass, static_cast<DestType*>(ptr), src.get_lifetime());
 	}
@@ -228,7 +277,7 @@ namespace up {
 	//
 	template<typename DestType, typename SrcType>
 	object_ref<DestType> cast_full(const object_ref<SrcType>& src) {
-		const auto* destclass = lookup_meta_class<DestType>();
+		const auto* destclass = lookup_meta_type<DestType>();
 		auto pair = casts::do_mostcast(src.get_class(), src.get_ptr());
 		auto* ptr = casts::do_downcast(pair.first, pair.second, destclass);
 		
@@ -263,7 +312,7 @@ namespace up {
 
 			static const type* get_class()
 			{
-				return lookup_meta_class<InterfaceType>();
+				return lookup_meta_type<InterfaceType>();
 			}
 
 			static boost::intrusive_ptr<proxy_type> query_ref(typetype& obj)
@@ -285,7 +334,7 @@ namespace up {
 			//
 			static object_ref<void> make_ref(typename typetype& obj) {
 				auto ptr = up::detail::lazy_proxy_storage::get().get<proxy_type>(obj, up::detail::type_to_id<proxy_type>());
-				return object_ref<interface_type>(lookup_meta_class<interface_type>(), ptr.get(), ptr);
+				return object_ref<interface_type>(lookup_meta_type<interface_type>(), ptr.get(), ptr);
 			}
 		};
 

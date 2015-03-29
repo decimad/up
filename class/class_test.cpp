@@ -11,7 +11,7 @@ struct some_base {
 
 using some_base_meta = up::static_class<some_base>;
 some_base_meta some_base_class("up.some_base_meta");
-const some_base_meta& get_meta_class(const some_base*) { return some_base_class; }
+const some_base_meta& get_meta_type(const some_base*) { return some_base_class; }
 
 struct some_base2 {
 	virtual void bar() const = 0;
@@ -21,7 +21,7 @@ struct some_base2 {
 using some_base2_meta = up::static_class<some_base>;
 
 some_base2_meta some_base2_class("up.some_base2_meta");
-const some_base2_meta& get_meta_class(const some_base2*) { return some_base2_class; }
+const some_base2_meta& get_meta_type(const some_base2*) { return some_base2_class; }
 
 struct short_tag {};
 
@@ -76,12 +76,12 @@ void sample_struct::set_short(short value) {
 }
 
 sample_struct_meta sample_struct_class("up.sample_struct");
-const sample_struct_meta& get_meta_class(const sample_struct*) { return sample_struct_class; }
+const sample_struct_meta& get_meta_type(const sample_struct*) { return sample_struct_class; }
 
 struct sample_struct2 {};
 using sample_struct_meta2 = up::static_class< sample_struct2, up::bases<> >;
 sample_struct_meta2 sample_struct2_class("up.sample_struct2");
-const sample_struct_meta2& get_meta_class(const sample_struct2*) { return sample_struct2_class; }
+const sample_struct_meta2& get_meta_type(const sample_struct2*) { return sample_struct2_class; }
 
 
 void user_func(const up::mutable_object_ref& ref)

@@ -29,9 +29,6 @@
     <ClInclude Include="containers.h">
       <Filter>class</Filter>
     </ClInclude>
-    <ClInclude Include="static_class.h">
-      <Filter>class</Filter>
-    </ClInclude>
     <ClInclude Include="reference.h">
       <Filter>class</Filter>
     </ClInclude>
@@ -84,6 +81,12 @@
       <Filter>class</Filter>
     </ClInclude>
     <ClInclude Include="type.h">
+      <Filter>class</Filter>
+    </ClInclude>
+    <ClInclude Include="static_type.h">
+      <Filter>class</Filter>
+    </ClInclude>
+    <ClInclude Include="meta.h">
       <Filter>class</Filter>
     </ClInclude>
   </ItemGroup>

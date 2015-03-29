@@ -7,12 +7,6 @@ namespace up {
 
 	class type;
 
-	namespace detail {
-		struct const_tag {};
-		struct mutable_tag {};
-		struct internal_tag {};	// const/mutable agnostic.
-	}
-
 	template< typename Tag, typename T >
 	class typed_ref;
 
@@ -139,15 +133,8 @@ namespace up {
 		boost::intrusive_ptr< refcounted_virtual > lt_;
 	};
 
-	template< typename T >
-	using const_typed_ref = typed_ref< detail::const_tag, T >;
-
-	template< typename T >
-	using mutable_typed_ref = typed_ref< detail::mutable_tag, T >;
-
-
-	using const_object_ref = object_ref<const void>;
-	using mutable_object_ref = object_ref<void>;
+	using const_object = object_ref<const void>;
+	using object = object_ref<void>;
 
 }
 
