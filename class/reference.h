@@ -355,7 +355,7 @@ namespace up {
 		{
 			for (auto member : members()) {
 				if (member.is<Interface>()) {
-					cl(cast<Interface>(*this));
+					cl(member.as<Interface>());
 				}
 			}
 		}

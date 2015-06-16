@@ -133,8 +133,8 @@ void user_func(const up::ref<void>& ref)
 	}
 
 	ref.for_each<up::group>([](auto group) {
-		group.for_each<up::group>([](auto group) {
-			group.if_<up::integer>([](auto integer) {
+		group->for_each<up::group>([](auto group) {
+			group->for_each<up::integer>([](auto integer) {
 				integer->set(44);
 			});
 		});

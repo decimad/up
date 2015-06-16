@@ -20,9 +20,19 @@ namespace up {
 		using ref_sequence_type = up::sequence<ref_iterator>;
 		using mem_sequence_type = up::sequence<mem_iterator>;
 
-		virtual mem_sequence_type members() = 0;
-		virtual ref_sequence_type refs() = 0;
+		virtual mem_sequence_type members() const = 0;
+		virtual ref_sequence_type refs() const = 0;
 
+		template<typename Interface, typename Callable>
+		void for_each(Callable&& cl) const
+		{
+			for (auto ref : refs()) {
+				if (ref.is<Interface>()) {
+					cl(ref.as<Interface>());
+				}
+			}
+		}
+		
 	private:
 
 	};
@@ -66,12 +76,12 @@ namespace up {
 					: container_(cref), members_(members)
 				{}
 
-				mem_sequence_type members() override
+				mem_sequence_type members() const override
 				{
 					return members_->members();
 				}
 
-				ref_sequence_type refs() override
+				ref_sequence_type refs() const override
 				{
 					return to_sequence(ref_iterator(members().begin(), container_), ref_iterator(members().end(), container_));
 				}
