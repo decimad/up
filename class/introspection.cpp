@@ -4,14 +4,15 @@
 
 namespace up {
 
-	void bases_breadth_first(const type* cl, const std::function<void(const type*)>& func) {
-		std::queue< const type* > queue;
-		queue.push(cl);
+	/*
+	void bases_breadth_first(const meta_type& cl, const std::function<void(type_ref)>& func) {
+		std::queue< const meta_type* > queue;
+		queue.push(&cl);
 
 		while(queue.size()) {
-			const type* front = queue.front();
+			const meta_type* front = queue.front();
 			queue.pop();
-			func(front);
+			func(*front);
 
 			const std::size_t size = front->num_bases();
 			for(std::size_t i = 0; i<size; ++i) {
@@ -20,15 +21,15 @@ namespace up {
 		}
 	}
 
-	void bases_depth_first(const type* cl, const std::function<void(const type*)>& func) {
-		std::stack< const type* > stack;
-		stack.push(cl);
+	void bases_depth_first(const meta_type& cl, const std::function<void(type_ref)>& func) {
+		std::stack< const meta_type* > stack;
+		stack.push(&cl);
 
 		while(stack.size()) {
-			const type* front = stack.top();
+			const meta_type* front = stack.top();
 			stack.pop();
 
-			func(front);
+			func(*front);
 
 			const std::size_t size = front->num_bases();
 			for(std::size_t i = 0; i<size; ++i) {
@@ -37,5 +38,6 @@ namespace up {
 		}
 
 	}
+	*/
 
 }

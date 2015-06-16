@@ -4,14 +4,14 @@ namespace up {
 
 	namespace detail {
 
-		events_holder* last_constructed_ = nullptr;
+		refcounted_virtual* last_constructed_ = nullptr;
 
-		events_holder* get_last_constructed_holder()
+		refcounted_virtual* get_last_constructed_holder()
 		{
 			return last_constructed_;
 		}
 
-		void set_last_constructed_holder(events_holder* holder)
+		void set_last_constructed_holder(refcounted_virtual* holder)
 		{
 			last_constructed_ = holder;
 		}

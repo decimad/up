@@ -1,5 +1,6 @@
 #pragma once
 #include <cstddef>
+#include <atomic>
 
 namespace up {
 
@@ -12,7 +13,7 @@ namespace up {
 		friend void intrusive_ptr_release(refcounted_virtual*);
 
 	private:
-		std::size_t refcount_;
+		std::atomic<std::size_t> refcount_;
 	};
 
 }

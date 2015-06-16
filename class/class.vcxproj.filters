@@ -15,18 +15,12 @@
     <Filter Include="class\detail">
       <UniqueIdentifier>{9e91ef2f-007b-4c8b-901d-4c6b46b474f7}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="ReadMe.txt" />
+    <Filter Include="class\integral">
+      <UniqueIdentifier>{a0df3bbb-c5e3-428b-995a-844d03ee519e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
-      <Filter>class</Filter>
-    </ClInclude>
-    <ClInclude Include="integral.h">
-      <Filter>class</Filter>
-    </ClInclude>
-    <ClInclude Include="containers.h">
       <Filter>class</Filter>
     </ClInclude>
     <ClInclude Include="reference.h">
@@ -59,9 +53,6 @@
     <ClInclude Include="casting.h">
       <Filter>class\detail</Filter>
     </ClInclude>
-    <ClInclude Include="integral_proxies.h">
-      <Filter>class\detail</Filter>
-    </ClInclude>
     <ClInclude Include="sequence.h">
       <Filter>class\detail</Filter>
     </ClInclude>
@@ -71,23 +62,71 @@
     <ClInclude Include="refcounted.h">
       <Filter>class\detail</Filter>
     </ClInclude>
-    <ClInclude Include="lazy_proxy.h">
-      <Filter>class\detail</Filter>
-    </ClInclude>
     <ClInclude Include="events.h">
       <Filter>class\detail</Filter>
     </ClInclude>
     <ClInclude Include="namespace.h">
       <Filter>class</Filter>
     </ClInclude>
-    <ClInclude Include="type.h">
-      <Filter>class</Filter>
-    </ClInclude>
     <ClInclude Include="static_type.h">
       <Filter>class</Filter>
     </ClInclude>
-    <ClInclude Include="meta.h">
+    <ClInclude Include="meta_type.h">
       <Filter>class</Filter>
+    </ClInclude>
+    <ClInclude Include="lazy_ref_storage.h">
+      <Filter>class\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="integral_integer.h">
+      <Filter>class\integral</Filter>
+    </ClInclude>
+    <ClInclude Include="integral_real.h">
+      <Filter>class\integral</Filter>
+    </ClInclude>
+    <ClInclude Include="integral_enum.h">
+      <Filter>class\integral</Filter>
+    </ClInclude>
+    <ClInclude Include="integral_bool.h">
+      <Filter>class\integral</Filter>
+    </ClInclude>
+    <ClInclude Include="integral_array.h">
+      <Filter>class\integral</Filter>
+    </ClInclude>
+    <ClInclude Include="integral_array_adapters.h">
+      <Filter>class\integral</Filter>
+    </ClInclude>
+    <ClInclude Include="integral_bool_adapters.h">
+      <Filter>class\integral</Filter>
+    </ClInclude>
+    <ClInclude Include="integral_enum_adapters.h">
+      <Filter>class\integral</Filter>
+    </ClInclude>
+    <ClInclude Include="integral_integer_adapters.h">
+      <Filter>class\integral</Filter>
+    </ClInclude>
+    <ClInclude Include="integral_real_adapters.h">
+      <Filter>class\integral</Filter>
+    </ClInclude>
+    <ClInclude Include="adapters.h">
+      <Filter>class\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="integral.h">
+      <Filter>class\integral</Filter>
+    </ClInclude>
+    <ClInclude Include="meta.h">
+      <Filter>class\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="integral_group.h">
+      <Filter>class\integral</Filter>
+    </ClInclude>
+    <ClInclude Include="integral_group_adapters.h">
+      <Filter>class\integral</Filter>
+    </ClInclude>
+    <ClInclude Include="any_iterator.hpp">
+      <Filter>class\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="member_container.h">
+      <Filter>class\detail</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -96,9 +135,6 @@
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>main</Filter>
-    </ClCompile>
-    <ClCompile Include="integral.cpp">
-      <Filter>class</Filter>
     </ClCompile>
     <ClCompile Include="introspection.cpp">
       <Filter>class</Filter>
@@ -133,8 +169,20 @@
     <ClCompile Include="events.cpp">
       <Filter>class\detail</Filter>
     </ClCompile>
-    <ClCompile Include="type.cpp">
+    <ClCompile Include="meta_type.cpp">
       <Filter>class</Filter>
+    </ClCompile>
+    <ClCompile Include="lazy_ref_storage.cpp">
+      <Filter>class\detail</Filter>
+    </ClCompile>
+    <ClCompile Include="reference.cpp">
+      <Filter>class</Filter>
+    </ClCompile>
+    <ClCompile Include="integral.cpp">
+      <Filter>class\integral</Filter>
+    </ClCompile>
+    <ClCompile Include="member_container.cpp">
+      <Filter>class\detail</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

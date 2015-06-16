@@ -47,15 +47,26 @@ namespace up {
 		sequence( Iterator begin, Iterator end )
 			: begin_(begin), end_(end)
 		{
-			//assert( end_ - begin_ >= 0 );
 		}
 
-		iterator begin()
+		template< typename OtherA, typename OtherB >
+		sequence(OtherA&& begin, OtherB&& end)
+			: begin_(std::forward<OtherA>(begin)), end_(std::forward<OtherB>(end))
+		{
+		}
+
+		template< typename Other >
+		sequence(const sequence<Other>& other)
+			: begin_(other.begin()), end_(other.end())
+		{
+		}
+
+		iterator begin() const
 		{
 			return begin_;
 		}
 
-		iterator end()
+		iterator end() const
 		{
 			return end_;
 		}

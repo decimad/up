@@ -19,8 +19,6 @@ struct TestTransformer
 using transformed = meta::transform_list_t< type, TestTransformer >;
 
 
-
-
 void func(int value)
 {
 	transformed foo;

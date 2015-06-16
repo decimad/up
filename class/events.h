@@ -20,6 +20,10 @@ namespace up {
 		boost::intrusive_ptr< refcounted_virtual > holder_ptr_;
 	};
 
+	namespace detail {
+		void set_last_constructed_holder(refcounted_virtual* holder);
+	}
+
 	struct events_holder : public refcounted_virtual
 	{
 		events_holder();
@@ -62,7 +66,7 @@ namespace up {
 
 
 	template< typename Events >
-	struct events_holder_t : public events_holder
+	struct events_holder_t
 	{
 		template< typename MemberType, typename... Args	>
 		void raise(MemberType(Events::*signal), Args&&... args) {
